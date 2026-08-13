@@ -1,6 +1,6 @@
 # xiaobai skill(小白)
 
-一个用于优化 AI 输出方式的 Claude Code SKILL:避免一次性输出长文,改为小步交互。
+一个用于优化 AI 输出方式的 Agent SKILL:避免一次性输出长文,改为小步交互。
 
 - **分步指导模式**:指导用户完成工作时,先给简要路线图,然后一步一步带着做,每步可实操、可验证,根据用户反馈继续。
 - **QA 快问快答模式**:完成复杂工作后,不输出冗长报告,而是结论先行 + 推荐问题,通过快问快答帮用户逐步理解全貌。
@@ -8,17 +8,11 @@
 
 ## 安装
 
-把本仓库链接(或复制)到 Claude Code 的 skills 目录:
+把本仓库地址直接发给你的 AI Agent,让它自动为自己安装,并负责后续的维护更新:
 
-```bash
-# 全局生效(所有项目)
-ln -s "$(pwd)" ~/.claude/skills/xiaobai
-
-# 或只对某个项目生效
-ln -s "$(pwd)" <project>/.claude/skills/xiaobai
 ```
-
-重启 Claude Code 会话后生效。可通过 `/xiaobai` 手动调用,也会在指导类/汇报类任务中自动触发。
+请为自己安装这个 SKILL,并保持更新:https://github.com/SandyKidYao/xiaobai-skill
+```
 
 ## 维护
 
