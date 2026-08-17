@@ -15,15 +15,11 @@
 
 ## 安装
 
-把本仓库地址直接发给你的 AI Agent,让它自动为自己安装,并负责后续的维护更新:
+发给你的 AI Agent，让它自行安装。
 
 ```
-请为自己安装这个 SKILL,并保持更新:https://github.com/SandyKidYao/xiaobai-skill
+请为自己安装这个 SKILL:https://github.com/SandyKidYao/xiaobai-skill
 ```
-
-## 维护
-
-SKILL 的全部内容在 [SKILL.md](SKILL.md),改完提交推送即可。
 
 ## 致谢
 
