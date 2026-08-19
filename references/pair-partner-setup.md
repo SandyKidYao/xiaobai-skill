@@ -21,10 +21,11 @@ command -v claude  # Claude Code(自己是 Claude Code 时跳过,同源没有交
 已验证的续接方式(以实际 `--help` 为准):
 
 ```bash
-# Codex CLI:首次调用后从输出中记下 session id(--json 事件流里有;
-# 或用 codex exec resume --last 续接最近一次)
-codex exec "<首轮提示词>"
+# Codex CLI:首轮加 --json 从事件流里捕获 session id,后续用 id 续接
+codex exec --json "<首轮提示词>"
 codex exec resume <SESSION_ID> "<后续轮提示词>"
+# 拿不到 id 时才用 resume --last 兜底——注意它续接的是"最近一次"会话,
+# 若期间有别的 codex 会话启动会续错对象,plan.md 元信息里要注明用了兜底
 
 # Claude Code:自己生成一个 UUID 作为 session id,全程复用
 claude -p --session-id <UUID> "<首轮提示词>"
@@ -62,7 +63,7 @@ claude -p --resume <UUID> "<后续轮提示词>"
 ```
 # 送审(编码完成后)
 实现完成,请 review。
-diff:<diff 文件路径,或 git 命令>
+改动:请在项目目录自行运行 `git diff <基线>` 查看(如 `git diff HEAD`;本轮增量另注明)
 运行测试:<命令>
 按简报的 finding 格式输出;全部通过则单独输出一行 APPROVE。
 
@@ -72,6 +73,8 @@ diff:<diff 文件路径,或 git 命令>
 ```
 
 最后一句在每次复审时都要带上——它迫使僵持的分歧向"可验证"的方向收敛,而不是空转措辞。
+
+**diff 的给法:优先用 git,不落盘。**项目有 git 时,直接让搭档在项目目录自己跑 `git diff`,并告知基线(如 `git diff HEAD`)——永远精确、零冗余文件、搭档还能按需局部查看;回合严格串行,搭档 review 期间你不改代码,它看到的就是送审时的状态。只有项目没有 git、或搭档环境确实读不了仓库时,才生成一次性 diff 文件发过去。不要在有 git 的项目里手工维护 diff 文件——它可能忘更新,让搭档审到和工作区脱节的内容。
 
 ## 调用注意事项
 
