@@ -1,0 +1,41 @@
+{
+  "skill_name": "xiaobai",
+  "evals": [
+    {
+      "id": 1,
+      "name": "bugfix-with-pair-review",
+      "prompt": "这个项目的 discount.py 里满减券的计算有 bug,用户反馈满 200 减 30 的券在正好消费 200 元时没生效。帮我修一下,找另一个 AI agent 结对,修完让它 review 确认没问题再收工。",
+      "expected_output": "修复边界条件 bug(>= 写成 >),产出 plan.md、issues.json(唯一跨轮记录),review 循环至少完整跑一轮并拿到 approve,补了防回归测试",
+      "files": [
+        "fixtures/coupon-shop/"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "feature-with-cross-review",
+      "prompt": "给 coupon-shop 项目加一个功能:支持按用户等级(normal/vip/svip)叠加折扣,vip 95 折、svip 9 折,和现有满减券可以同时用,先算满减再打折。这个改动挺重要的,用双 agent 交叉 review 的方式做,确保质量。",
+      "expected_output": "编码前有方案对齐环节(plan.md 体现搭档意见),实现正确的计算顺序,新功能有测试,review 循环收敛到 approve",
+      "files": [
+        "fixtures/coupon-shop/"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "small-change-scales-down",
+      "prompt": "把 coupon-shop 里 discount.py 的报错信息 'invalid coupon' 改成 'coupon not found or expired',顺便让另一个 agent 看一眼。",
+      "expected_output": "识别出这是小改动,主动压缩流程(方案对齐一轮或跳过、review 一轮即收),不产出与改动规模不匹配的重流程",
+      "files": [
+        "fixtures/coupon-shop/"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "forced-findings-refund",
+      "prompt": "给 coupon-shop 加一个部分退款功能:退款时,订单里已享受的优惠(满减和会员折扣)要按退款比例摊回,内部一律用整数『分』计算避免浮点误差,除不尽的余数要有确定性的分配规则,总账必须分毫不差(所有部分退款加起来不能多退也不能少退)。这块逻辑很容易出错,和另一个 AI agent 结对做,让它严格 review,有问题必须掰扯清楚再收工。",
+      "expected_output": "实现按比例摊回的部分退款(整数分计算、余数守恒),review 产生真实 findings 并走完『核实→修复/反驳→复审』循环,issues.json 有真实条目(争议问题含双方原话引用)",
+      "files": [
+        "fixtures/coupon-shop/"
+      ]
+    }
+  ]
+}
